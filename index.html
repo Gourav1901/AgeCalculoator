@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="calculator">
+      <h1>Javascript <br><span>Age Calculator</span></h1>
+      <div class="input-box">
+        <input type="date" id="date">
+        <button onclick="calculateAge()">Calculate</button>
+      </div>
+      <p id="result"></p>
+    </div>
+  </div>
+  <script>
+    // Get references to HTML elements
+    let userInput = document.getElementById("date");
+    let result = document.getElementById("result");
+
+    // Set the maximum date to the current date
+    userInput.max = new Date().toISOString().split("T")[0];
+
+    // Function to calculate age
+    function calculateAge() {
+      // Parse the user's input date
+      let birthDate = new Date(userInput.value);
+
+      // Get current date
+      let today = new Date();
+
+      // Calculate the difference in years, months, and days
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
+
+      // Adjust for negative months or days
+      if (months < 0 || (months === 0 && days < 0)) {
+        years--;
+        months += 12;
+      }
+
+      // Display the result
+      result.innerHTML = `You are <span>${years}</span> years, <span>${months}</span> months, and 
+                                 <span>${days}</span> days old`;
+    }
+  </script>
+</body>
+
+</html>
